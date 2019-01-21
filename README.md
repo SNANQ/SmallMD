@@ -24,7 +24,7 @@
 自从SMD2开始逐步兼容*markdown语言*语法，SMD的使用也变得更为简单。  
 当然这还不够，在未来，SMD将会以现在已支持的*markdown语言*语法为基础，不断的扩展更多更便于使用的功能。
 
-详细请参见：[http://www.snang.cc/tool/6.html](http://www.snang.cc/tool/6.html)
+详细请参见：[山岚幽阳网站在线工具：www.snang.cc/tool/6.html](http://www.snang.cc/tool/6.html)
 
 ### 4 旧版SMD**支持情况**？
 旧版相关的内容，已改为添加到了代码块的解析功能中，加入后你可以在代码块开头的`\`\`\``的后面加入`SMD1&2`，然后在代码框的范围内使用旧版功能.
