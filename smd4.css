@@ -1,0 +1,91 @@
+/*
+* <one line to give the program's name and a brief idea of what it does.>
+* Copyright (C) 2019  shanghuo
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+* 
+* SMD由上火(shanghuo)编写，山岚幽阳网站：www.snang.cc
+* SMD1版本感谢网友fmq03协助测试，SMD4版本感谢网友MFC.jar提出的非常不错的建议
+* 本程序(SMD4)基于GNU General Public License v3.0协议开源
+*/
+
+#editHtml a {
+	text-decoration: none;
+	color: #990000;
+}
+
+#editHtml a:hover {
+	color: #ff0000;
+}
+
+#editHtml h1, h2, h3, h4, h5, h6 {
+	margin: 1em;
+}
+
+#editHtml pre {
+	margin: 6px;
+	padding: 4px;
+	overflow: auto;
+	background-color: #dddddd;
+}
+
+#editHtml blockquote {
+	margin: 2px;
+	padding: 4px 8px 4px 8px;
+	font-size: 12px;
+	line-height: 18px;
+	border-left: 4px solid #999999;
+	background-color: #eeeeee;
+	opacity: 0.6;
+}
+
+#editHtml table {
+	background-color: #eeeeee;
+}
+
+#editHtml th {
+	text-align: center;
+	background-color: #dddddd;
+}
+
+#editHtml td {
+	background-color: #ffffff;
+}
+
+#editHtml code {
+	padding: 2px;
+	font-size: 12px;
+	line-height: 22px;
+	font-weight: normal;
+	background-color: #dddddd;
+}
+
+#editHtml em {
+	padding: 2px;
+	border-radius: 6px;
+	font-size: 16px;
+	line-height: 26px;
+	font-style: normal;
+	background-color: #fceef0;
+	color: #cc2550;
+}
+
+#editHtml strong {
+	padding: 2px;
+	border-radius: 6px;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: normal;
+	background-color: #f0f068;
+}
