@@ -480,10 +480,10 @@ function SMD4() {
                 lnraw[i] = lnraw[i].replace(/(?:~~)([^~]*?)(?:~~)/ig, '<del>$1</del>');
                 //下划线
                 lnraw[i] = lnraw[i].replace(/(?:\+\+)([^\+]*?)(?:\+\+)/ig, '<ins>$1</ins>');
-                //上标字
-                lnraw[i] = lnraw[i].replace(/(?:\^{1,2})([^\^]*?)(?:\^{1,2})/ig, '<sup>$1</sup>');
                 //下标字
                 lnraw[i] = lnraw[i].replace(/(?:\^{3})([^\^]*?)(?:\^{3})/ig, '<sub>$1</sub>');
+                //上标字
+                lnraw[i] = lnraw[i].replace(/(?:\^{1,2})([^\^]*?)(?:\^{1,2})/ig, '<sup>$1</sup>');
                 //高亮
                 lnraw[i] = lnraw[i].replace(/(?:==)([^=]*?)(?:==)/ig, '<strong>$1</strong>');
                 //强调
