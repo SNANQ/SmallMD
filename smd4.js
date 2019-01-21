@@ -462,8 +462,8 @@ function SMD4() {
                 }
             }
             //判断是否标记
-            lnraw[i] = lnraw[i].replace(/ /ig, '&nbsp;');
             if (isSign) {
+                lnraw[i] = lnraw[i].replace(/ /ig, '&nbsp;');
                 str += '<code>' + lnraw[i] + '</code>';
             }
             else {
@@ -473,17 +473,18 @@ function SMD4() {
                 lnraw[i] = lnraw[i].replace(/(?:\!\[)(.*?)(?:\]\()(.*?)(?:\))/ig, '<img src="$2" title="$1" />');
                 //链接
                 lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\[)([^\]]*?)(?:\]\()([^\)]*?)(?:\))/ig, '<a href="$3" title="$2">$1</a>');
-                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\:)([^\"]*?)(?:\")([^\"]*?)(?:\")/ig, '<a href="$2" title="$1">$3</a>');
+                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\:\s*)([^\"]*?)(?:\s*\")([^\"]*?)(?:\")/ig, '<code>[$1]</code><a href="$2" target="_blank" title="$1" id="a$1">$3</a>');
                 lnraw[i] = lnraw[i].replace(/(?:\[)(.*?)(?:\]\()(.*?)(?:\")(.*?)(?:\"\s*?\))/ig, '<a href="$2" title="$3">$1</a>');
                 lnraw[i] = lnraw[i].replace(/(?:\[)(.*?)(?:\]\()(.*?)(?:\))/ig, '<a href="$2">$1</a>');
+                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\[)([^\]]*?)(?:\])/ig, '<a href="#a$2" onclick=\'document.getElementById("a$2").click();\'>$1</a><code>[$2]</code>');
                 //删除线
                 lnraw[i] = lnraw[i].replace(/(?:~~)([^~]*?)(?:~~)/ig, '<del>$1</del>');
                 //下划线
                 lnraw[i] = lnraw[i].replace(/(?:\+\+)([^\+]*?)(?:\+\+)/ig, '<ins>$1</ins>');
-                //下标字
-                lnraw[i] = lnraw[i].replace(/(?:\^{3})([^\^]*?)(?:\^{3})/ig, '<sub>$1</sub>');
                 //上标字
                 lnraw[i] = lnraw[i].replace(/(?:\^{1,2})([^\^]*?)(?:\^{1,2})/ig, '<sup>$1</sup>');
+                //下标字
+                lnraw[i] = lnraw[i].replace(/(?:\^{3})([^\^]*?)(?:\^{3})/ig, '<sub>$1</sub>');
                 //高亮
                 lnraw[i] = lnraw[i].replace(/(?:==)([^=]*?)(?:==)/ig, '<strong>$1</strong>');
                 //强调
@@ -505,6 +506,8 @@ function SMD4() {
                 //倾斜,遇到标签或=运算符不处理
                 lnraw[i] = lnraw[i].replace(/(?:\*)([^\*]*?)(?:\*)/ig, '<i>$1</i>');
                 lnraw[i] = lnraw[i].replace(/(?:_)([^_]*?)(?:_)/ig, '<i>$1</i>');
+                //空格的处理
+                lnraw[i] = lnraw[i].replace(/  /ig, ' &nbsp;');
                 str += lnraw[i];
             }
             isSign = !isSign;
