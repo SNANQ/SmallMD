@@ -473,10 +473,10 @@ function SMD4() {
                 lnraw[i] = lnraw[i].replace(/(?:\!\[)(.*?)(?:\]\()(.*?)(?:\))/ig, '<img src="$2" title="$1" />');
                 //链接
                 lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\[)([^\]]*?)(?:\]\()([^\)]*?)(?:\))/ig, '<a href="$3" title="$2">$1</a>');
-                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\:\s*)([^\"]*?)(?:\s*\")([^\"]*?)(?:\")/ig, '<code>[$1]</code><a href="$2" target="_blank" title="$1" id="a$1">$3</a>');
+                lnraw[i] = lnraw[i].replace(/(?:\[)([0-9a-z]*?)(?:\]\:\s*)([^\"]*?)(?:\s*\")([^\"]*?)(?:\")/ig, '<code>[$1]</code><a href="$2" target="_blank" title="$1" id="a$1">$3</a>');
                 lnraw[i] = lnraw[i].replace(/(?:\[)(.*?)(?:\]\()(.*?)(?:\")(.*?)(?:\"\s*?\))/ig, '<a href="$2" title="$3">$1</a>');
                 lnraw[i] = lnraw[i].replace(/(?:\[)(.*?)(?:\]\()(.*?)(?:\))/ig, '<a href="$2">$1</a>');
-                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\[)([^\]]*?)(?:\])/ig, '<a href="#a$2" onclick=\'document.getElementById("a$2").click();\'>$1</a><code>[$2]</code>');
+                lnraw[i] = lnraw[i].replace(/(?:\[)([^\]]*?)(?:\]\[)([0-9a-z]*?)(?:\])/ig, '<a href="#a$2" onclick=\'document.getElementById("a$2").click();\'>$1</a><code>[$2]</code>');
                 //删除线
                 lnraw[i] = lnraw[i].replace(/(?:~~)([^~]*?)(?:~~)/ig, '<del>$1</del>');
                 //下划线
