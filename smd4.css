@@ -20,27 +20,27 @@
 * 本程序(SMD4)基于GNU General Public License v3.0协议开源
 */
 
-#editHtml a {
+.smd4 a {
 	text-decoration: none;
 	color: #990000;
 }
 
-#editHtml a:hover {
+.smd4 a:hover {
 	color: #ff0000;
 }
 
-#editHtml h1, h2, h3, h4, h5, h6 {
+.smd4 h1,.smd4 h2,.smd4 h3,.smd4 h4,.smd4 h5,.smd4 h6 {
 	margin: 1em;
 }
 
-#editHtml pre {
+.smd4 pre {
 	margin: 6px;
 	padding: 4px;
 	overflow: auto;
 	background-color: #dddddd;
 }
 
-#editHtml blockquote {
+.smd4 blockquote {
 	margin: 2px;
 	padding: 4px 8px 4px 8px;
 	font-size: 12px;
@@ -50,20 +50,20 @@
 	opacity: 0.6;
 }
 
-#editHtml table {
+.smd4 table {
 	background-color: #eeeeee;
 }
 
-#editHtml th {
+.smd4 th {
 	text-align: center;
 	background-color: #dddddd;
 }
 
-#editHtml td {
+.smd4 td {
 	background-color: #ffffff;
 }
 
-#editHtml code {
+.smd4 code {
 	padding: 2px;
 	font-size: 12px;
 	line-height: 22px;
@@ -71,7 +71,7 @@
 	background-color: #dddddd;
 }
 
-#editHtml em {
+.smd4 em {
 	padding: 2px;
 	border-radius: 6px;
 	font-size: 16px;
@@ -81,7 +81,7 @@
 	color: #cc2550;
 }
 
-#editHtml strong {
+.smd4 strong {
 	padding: 2px;
 	border-radius: 6px;
 	font-size: 16px;
