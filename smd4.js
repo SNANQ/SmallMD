@@ -156,7 +156,7 @@ function SMD4() {
         else if (treeNode.child.length >= 1) {
             id = this.lookupNode(id, type, attribute, start, end, treeNode.child[treeNode.child.length - 1]);
         }
-        if ((treeNode.type == 'ul' || treeNode.type == 'ol') && treeNode.start == start) {
+        if ((treeNode.type == 'ul' || treeNode.type == 'ol') && treeNode.start == start && (type == 'ul' || type == 'ol')) {
             return treeNode.id;
         }
         return id;
@@ -167,7 +167,7 @@ function SMD4() {
     * 标志类型，标志属性，标志结束位
     */
     this.readSign = function (line, start) {
-        var sign = line.substr(start).replace(/^(\s*)(\|?:?[-=]{3,}:?\|:?[-=]{3,}[\|:-=]*|={3,}|-{3,}|\*{3,}|`{3,}|#{1,6}|>|- \[x\]|- \[ \]|[-+·]|[0-9]+\.|)(\s*)(.*)$/, "$1,$2,$3,$4").split(',');
+        var sign = line.substr(start).replace(/^(\s*)(\|?:?[-=]{3,}:?\|:?[-=]{3,}[\|:-=]*|={3,}|-{3,}|\*{3,}|`{3,}|#{1,6}|>|- \[x\]|- \[ \]|[-+·\*]|[0-9]+\.|)(\s*)(.*)$/, "$1,$2,$3,$4").split(',');
         if (/^={3,}$/.test(sign[1]) && sign[3].length == 0) {
             return {
                 type: 'hc',
@@ -224,7 +224,7 @@ function SMD4() {
                 end: start + sign[0].length + sign[1].length
             }
         }
-        if (/^[-+·]$/.test(sign[1])) {
+        if (/^[-+·\*]$/.test(sign[1])) {
             if (sign[0].length >= 1 && sign[0].substr(0, 1) == "\t") {
                 return {
                     type: 'ul',
@@ -274,10 +274,12 @@ function SMD4() {
                     end: start + 3
                 }
             }
-            return {
-                type: 'ol',
-                attribute: sign[1],
-                end: start + sign[0].length + sign[1].length
+            else if (sign[2].length > 0) {
+                return {
+                    type: 'ol',
+                    attribute: sign[1],
+                    end: start + sign[0].length + sign[1].length
+                }
             }
         }
         if (/^\|?:?[-=]{3,}:?\|:?[-=]{3,}[\|:-=]*$/.test(sign[1])) {
@@ -363,6 +365,9 @@ function SMD4() {
         var str = '';
         for (var i = 0; treeNode.child.length > i; i++) {
             if (i > 0 && treeNode.type != 'ul' && treeNode.type != 'ol' && treeNode.child[i].type == 'text' && treeNode.child[i - 1].type == 'text') {
+                if (str.length > 4 && str.substr(-4) == '<br>') {
+                    str = str.substr(0, str.length - 4);
+                }
                 str += '<br />' + this.printNode(treeNode.child[i]);
             }
             else if (treeNode.type == 'ul' || treeNode.type == 'ol') {
@@ -505,7 +510,7 @@ function SMD4() {
                 lnraw[i] = lnraw[i].replace(/(?:__)([^_]*?)(?:__)/ig, '<b>$1</b>');
                 //倾斜,遇到标签或=运算符不处理
                 lnraw[i] = lnraw[i].replace(/(?:\*)([^\*]*?)(?:\*)/ig, '<i>$1</i>');
-                lnraw[i] = lnraw[i].replace(/(?:_)([^_]*?)(?:_)/ig, '<i>$1</i>');
+                lnraw[i] = lnraw[i].replace(/([^a-zA-Z])(?:_)([^_]*?)(?:_)([^a-zA-Z])/ig, '$1<i>$2</i>$3');
                 //空格的处理
                 lnraw[i] = lnraw[i].replace(/  /ig, ' &nbsp;');
                 str += lnraw[i];
