@@ -47,6 +47,11 @@ function SMD4() {
         this.line = 0;
         for (this.line = 0; this.line < this.raw.length; this.line++) {
             var start = 0, nodeId = 0;
+            if (this.raw[this.line].length == 0) {
+                //空行
+                this.addNode(nodeId, 'text', 0, start, start);
+                continue;
+            }
             while (this.raw[this.line].length > start) {
                 var sign = this.readSign(this.raw[this.line], start);
                 if (sign.type == 'code') {
@@ -126,7 +131,7 @@ function SMD4() {
     * 节点id
     */
     this.addNode = function (id, type, attribute, start, end) {
-        if (type == 'text' && attribute.substr(0, 1) == "\\") {
+        if (type == 'text' && attribute > 0 && attribute.substr(0, 1) == "\\") {
             attribute = attribute.substr(1);
         }
         this.maxNode += 1;
@@ -363,27 +368,64 @@ function SMD4() {
     */
     this.printNode = function (treeNode) {
         var str = '';
-        for (var i = 0; treeNode.child.length > i; i++) {
-            if (i > 0 && treeNode.type != 'ul' && treeNode.type != 'ol' && treeNode.child[i].type == 'text' && treeNode.child[i - 1].type == 'text') {
-                if (str.length > 4 && str.substr(-4) == '<br>') {
-                    str = str.substr(0, str.length - 4);
+        var isP = false;
+        for (var i = 0; treeNode.child.length >= i; i++) {
+            if (treeNode.child.length == i) {
+                if (i > 0 && isP && treeNode == this.tree) {
+                    str += '</p>';
+                    isP = false;
                 }
-                str += '<br />' + this.printNode(treeNode.child[i]);
+                continue;
             }
-            else if (treeNode.type == 'ul' || treeNode.type == 'ol') {
-                if (treeNode.child[i].type == 'ul' || treeNode.child[i].type == 'ol') {
-                    str += this.printNode(treeNode.child[i]);
+            if (i > 0 && treeNode.type != 'ul' && treeNode.type != 'ol' && treeNode.child[i].type == 'text') {
+                // 文本
+                if (!isP && treeNode == this.tree) {
+                    // 如果不存在段落
+                    str += '<p>' + this.printNode(treeNode.child[i]);
+                    isP = true;
+                    continue;
                 }
-                else {
-                    str += '<li>' + this.printNode(treeNode.child[i]) + '</li>';
+                else if (treeNode.child[i - 1].type == 'text') {
+                    if (str.length > 4 && str.substr(-4) == '<br>') {
+                        // 剔除多余br
+                        str = str.substr(0, str.length - 4);
+                    }
+                    if (str.length > 6 && str.substr(-6) == '<br />') {
+                        // 设置段落
+                        str = str.substr(0, str.length - 6) + '</p><p>' + this.printNode(treeNode.child[i]);
+                        continue;
+                    }
+                    str += '<br />' + this.printNode(treeNode.child[i]);
                 }
             }
             else {
-                str += this.printNode(treeNode.child[i]);
+                if (i > 0 && isP && treeNode == this.tree) {
+                    if (str.length > 3 && str.substr(-3) == '<p>') {
+                        // 剔除多余br
+                        str = str.substr(0, str.length - 3);
+                    }
+                    else {
+                        str += '</p>';
+                    }
+                    isP = false;
+                }
+                if (treeNode.type == 'ul' || treeNode.type == 'ol') {
+                    // 列表
+                    if (treeNode.child[i].type == 'ul' || treeNode.child[i].type == 'ol') {
+                        str += this.printNode(treeNode.child[i]);
+                    }
+                    else {
+                        str += '<li>' + this.printNode(treeNode.child[i]) + '</li>';
+                    }
+                }
+                else {
+                    // 递归
+                    str += this.printNode(treeNode.child[i]);
+                }
             }
 
         }
-        if (treeNode.type == 'text') {
+        if (treeNode.type == 'text' && treeNode.attribute.length > 0) {
             return this.lnline(treeNode.attribute);
         }
         if (treeNode.type == 'h') {
