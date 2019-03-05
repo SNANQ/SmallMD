@@ -331,11 +331,14 @@ function SMD4() {
             //把第二行按列分割，分析后存放为数组
             else if (i == 1) {
                 for (var j = 0; j < td.length; j++) {
-                    if (/^:-+:$/.test(td[j])) {
+                    if (/^:[-—]+:$/.test(td[j])) {
                         tdInfo[j] = 'tdc';
                     }
-                    else if (/^-+:$/.test(td[j])) {
+                    else if (/^[-—]+:$/.test(td[j])) {
                         tdInfo[j] = 'tdr';
+                    }
+                    else if (/^:[-—]+$/.test(td[j])) {
+                        tdInfo[j] = 'tdl';
                     }
                     else if (/^:?=+:?$/.test(td[j])) {
                         tdInfo[j] = 'th';
@@ -472,6 +475,9 @@ function SMD4() {
         }
         if (treeNode.type == 'tdr') {
             return '<td style="text-align:right;">' + this.lnline(treeNode.attribute) + '</td>';
+        }
+        if (treeNode.type == 'tdl') {
+            return '<td style="text-align:left;">' + this.lnline(treeNode.attribute) + '</td>';
         }
         return str;
     }
